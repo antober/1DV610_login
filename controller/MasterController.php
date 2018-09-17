@@ -28,7 +28,6 @@
             $logv = new LoginView($lm);
             $lc = new LoginController($logv, $lm);
 
-
             $lc->initializeLogin();
             $layv->render($lm->isLoggedIn(), $logv, $dtv);
         }

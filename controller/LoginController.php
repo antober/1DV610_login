@@ -8,6 +8,10 @@ class LoginController
         $this->lm = $lm;
     }
 
+    /**
+     * initializeLogin
+     * @return void
+     */
     public function initializeLogin()  
     {
         
@@ -17,10 +21,8 @@ class LoginController
             {
                 try 
                 {
-                    var_dump($this->logv->getUsername());
-                    var_dump($this->logv->getPassword());
                     $this->lm->tryLogin($this->logv->getUsername(), $this->logv->getPassword());
-                    $this->logv->welcomeText();              
+                    $this->logv->welcomeText();          
                 }
             
                 catch (exception $e)

@@ -11,14 +11,18 @@ class UserDAL
 
 
     /**
-     * getUser loops all currently store users
-     * @return Void or $user
+     * getUser gets username field
+     * @return username
      */
     public function getUsername()
     {
         return $this->username;
     }
 
+    /**
+     * getPassword gets password field
+     * @return password
+     */
     public function getPassword()
     {
         return $this->password;

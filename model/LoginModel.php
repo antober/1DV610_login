@@ -24,9 +24,6 @@ class LoginModel
     {
         $this->username = $username;
         $this->password = $password;
-        var_dump($this->username);
-        var_dump($this->password);
-        var_dump($this->userDAL->getUsername(), $this->userDAL->getPassword());
         
         if($this->username == '')
         {
@@ -53,6 +50,10 @@ class LoginModel
         }
     }
 
+    /**
+     * isLoggedIn returns check
+     * @return bool
+     */
     public function isLoggedIn()
     {
         return $this->check;

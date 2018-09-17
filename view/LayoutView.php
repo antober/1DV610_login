@@ -16,7 +16,7 @@ class LayoutView {
           
           <div class="container">
               ' . $v->response() . '
-              
+
               ' . $dtv->show() . '
           </div>
          </body>

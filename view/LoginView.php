@@ -16,16 +16,31 @@ class LoginView {
 		$this->lm = $lm;
 	}
 
+	/**
+	 * Sets message
+	 * 
+	 * @return void
+	 */
 	public function statusMessages ($message) 
 	{
 		$this->message = $message;
 	}
-	 
+	
+	/**
+	 * sets message to welcome
+	 * 
+	 * @return void
+	 */
 	public function welcomeText()
 	{
 	 	$this->message = 'Welcome';
 	}
 	
+	/**
+	 * Sets message to Bye bye
+	 * 
+	 * @return void
+	 */
 	public function byebyeText()
 	{
 		$this->message = 'Bye bye';
@@ -39,14 +54,18 @@ class LoginView {
 	 * @return  void BUT writes to standard output and cookies!
 	 */
 	public function response() {
-		$message = '';
-		$response = '';
 		
-		$response .= $this->generateLoginFormHTML($message);
-		// else
-		// {
-		// 	$response .= $this->generateLogoutButtonHTML($message);
-		// }
+		$message = ''; 
+		$response = '';
+	
+		if ($this->lm->isloggedin())
+		{
+			$response .= $this->generateLogoutButtonHTML($this->message);
+		}
+		else 
+		{
+			 $response .= $this->generateLoginFormHTML($this->message);
+		}
 		return $response;
 	}
 
@@ -101,18 +120,28 @@ class LoginView {
 		return $_POST[self::$password];
 	}
 	
-	// public function logoutButton()
-	// {
-	// 	if(isset($_POST[self::$logout])) 
-	// 	{
-	// 		return true;
-	// 	}
-	// 	else 
-	// 	{
-	// 		return false;
-	// 	}
-	// }
+	/**
+	 * Listens to logoutButton
+	 * 
+	 * @return bool
+	 */
+	public function logoutButton()
+	{
+		if(isset($_POST[self::$logout])) 
+		{
+			return true;
+		}
+		else 
+		{
+			return false;
+		}
+	}
 	
+	/**
+	 * Listens to loginbutton
+	 * 
+	 * @return bool
+	 */
 	public function post()
 	{
 		if(isset($_POST[self::$login]))
