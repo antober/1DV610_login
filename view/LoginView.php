@@ -9,8 +9,27 @@ class LoginView {
 	private static $cookiePassword = 'LoginView::CookiePassword';
 	private static $keep = 'LoginView::KeepMeLoggedIn';
 	private static $messageId = 'LoginView::Message';
+	private $message;
 
+	public function __construct(LoginModel $lm) 
+	{
+		$this->lm = $lm;
+	}
+
+	public function statusMessages ($message) 
+	{
+		$this->message = $message;
+	}
+	 
+	public function welcomeText()
+	{
+	 	$this->message = 'Welcome';
+	}
 	
+	public function byebyeText()
+	{
+		$this->message = 'Bye bye';
+	}
 
 	/**
 	 * Create HTTP response
@@ -21,9 +40,13 @@ class LoginView {
 	 */
 	public function response() {
 		$message = '';
+		$response = '';
 		
-		$response = $this->generateLoginFormHTML($message);
-		//$response .= $this->generateLogoutButtonHTML($message);
+		$response .= $this->generateLoginFormHTML($message);
+		// else
+		// {
+		// 	$response .= $this->generateLogoutButtonHTML($message);
+		// }
 		return $response;
 	}
 
@@ -67,10 +90,43 @@ class LoginView {
 			</form>
 		';
 	}
+
+	public function getUsername()
+	{
+		return $_POST[self::$name];		
+	}
+
+	public function getPassword()
+	{
+		return $_POST[self::$password];
+	}
+	
+	// public function logoutButton()
+	// {
+	// 	if(isset($_POST[self::$logout])) 
+	// 	{
+	// 		return true;
+	// 	}
+	// 	else 
+	// 	{
+	// 		return false;
+	// 	}
+	// }
+	
+	public function post()
+	{
+		if(isset($_POST[self::$login]))
+		{ 
+			return true;
+		}
+		else 
+		{
+			return false;
+		}
+	}	
 	
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
 	private function getRequestUserName() {
 		//RETURN REQUEST VARIABLE: USERNAME
 	}
-	
 }

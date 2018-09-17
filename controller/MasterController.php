@@ -1,6 +1,8 @@
 <?php
+    session_start();
 
     require_once('index.php');
+    require_once('model/UserDAL.php');
     require_once('view/LoginView.php');
     require_once('view/DateTimeView.php');
     require_once('view/LayoutView.php');
@@ -10,8 +12,8 @@
     
     class MasterController 
     {
+        
         /**
-         * 
          * LaunchApplication instansiates necessary components 
          * 
          * @return void
@@ -19,19 +21,15 @@
 
         public function LaunchApplication()
         {
-            $logv = new LoginView();
+            $uDAL = new UserDAL();
             $dtv = new DateTimeView();
             $layv = new LayoutView();
-            
-            $layv->render(false, $v, $dtv);
-            
-            //TODO: instansiate relevent objects 
-            //and run relevant methods for this login eventlistener
-            if(isset($_GET['login']))
-            {
-                $lm = new LoginModel();
-                
-            }      
+            $lm = new LoginModel($uDAL);
+            $logv = new LoginView($lm);
+            $lc = new LoginController($logv, $lm);
+
+
+            $lc->initializeLogin();
+            $layv->render($lm->isLoggedIn(), $logv, $dtv);
         }
-    } 
-?>
+    }
