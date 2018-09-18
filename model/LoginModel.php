@@ -20,16 +20,10 @@ class LoginModel
      * @return Void
      */
 
-    public function tryLogin($username, $password)
-    {
+    public function tryLogin($username, $password)    {
         $this->username = $username;
         $this->password = $password;
         
-        if($this->username == '' && $this->password == '')
-        {
-            throw new Exception('Username and Password is missing');
-        }
-
         if($this->username == '')
         {
             throw new Exception('Username is missing');
@@ -38,6 +32,22 @@ class LoginModel
         if($this->password == '')
         {
             throw new Exception('Password is missing');
+        }
+        
+        else if($this->username == '' && $this->password == '')
+        {
+            throw new Exception('Username and Password is missing');
+        }
+
+        if($this->username == $this->userDAL->getUsername() && $this->password != $this->userDAL->getPassword())
+        {
+            throw new Exception('Wrong name or password');
+        }
+
+        if($this->username != $this->userDAL->getUsername() && $this->password == $this->userDAL->getPassword())
+        {
+            //TODO: fix bug where welcome is being rendered here
+            throw new Exception('Wrong name or password');
         }
 
         if($this->username == $this->userDAL->getUsername() && $this->password == $this->userDAL->getPassword()) 
