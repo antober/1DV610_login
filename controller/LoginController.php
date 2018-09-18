@@ -22,7 +22,7 @@ class LoginController
                 try 
                 {
                     $this->lm->tryLogin($this->logv->getUsername(), $this->logv->getPassword());
-                    $this->logv->welcomeText();          
+                    $this->logv->statusMessages($this->logv->welcomeText());          
                 }
             
                 catch (exception $e)
@@ -36,6 +36,7 @@ class LoginController
             if($this->logv->logoutButton() == true)
             {
                 $this->lm->tryLogout();
+                var_dump($this->lm->tryLogout());
                 $this->logv->byebyeText();
             }
         }

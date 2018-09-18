@@ -33,7 +33,7 @@ class LoginView {
 	 */
 	public function welcomeText()
 	{
-	 	$this->message = 'Welcome';
+	 	return 'Welcome';
 	}
 	
 	/**
@@ -43,7 +43,7 @@ class LoginView {
 	 */
 	public function byebyeText()
 	{
-		$this->message = 'Bye bye';
+		return 'Bye bye';
 	}
 
 	/**
