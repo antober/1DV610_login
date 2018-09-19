@@ -9,10 +9,10 @@ class LoginController
     }
 
     /**
-     * initializeLogin
+     * initLogin
      * @return void
      */
-    public function initializeLogin()  
+    public function initLogin()
     {
         
         if(!$this->lm->isLoggedIn())
@@ -31,14 +31,12 @@ class LoginController
                 }
             }
         }
-        else 
+        
+        if($this->logv->logoutButton() == true)
         {
-            if($this->logv->logoutButton() == true)
-            {
-                $this->lm->tryLogout();
-                var_dump($this->lm->tryLogout());
-                $this->logv->byebyeText();
-            }
+            $this->logv->statusMessages($this->logv->byebyeText());
+            $this->lm->tryLogout();
         }
+        
     }
 }

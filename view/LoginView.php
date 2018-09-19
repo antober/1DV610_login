@@ -21,7 +21,7 @@ class LoginView {
 	 * 
 	 * @return void
 	 */
-	public function statusMessages ($message) 
+	public function statusMessages($message) 
 	{
 		$this->message = $message;
 	}
@@ -43,7 +43,7 @@ class LoginView {
 	 */
 	public function byebyeText()
 	{
-		return 'Bye bye';
+		return 'Bye bye!';
 	}
 
 	/**
@@ -105,6 +105,7 @@ class LoginView {
 					<input type="checkbox" id="' . self::$keep . '" name="' . self::$keep . '" />
 					
 					<input type="submit" name="' . self::$login . '" value="login" />
+					<a href="?register">Register</a>
 				</fieldset>
 			</form>
 		';
