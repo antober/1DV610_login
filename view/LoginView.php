@@ -37,11 +37,11 @@ class LoginView {
 	}
 	
 	/**
-	 * Sets message to Bye bye
+	 * Sets message to "you are logged out"
 	 * 
 	 * @return void
 	 */
-	public function byebyeText()
+	public function logoutText()
 	{
 		return 'Bye bye!';
 	}
@@ -55,7 +55,6 @@ class LoginView {
 	 */
 	public function response() {
 		
-		$message = ''; 
 		$response = '';
 	
 		if ($this->lm->isloggedin())
@@ -96,7 +95,7 @@ class LoginView {
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					
 					<label for="' . self::$name . '">Username :</label>
-					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="" />
+					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->getUsername() . '" />
 
 					<label for="' . self::$password . '">Password :</label>
 					<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
@@ -105,7 +104,7 @@ class LoginView {
 					<input type="checkbox" id="' . self::$keep . '" name="' . self::$keep . '" />
 					
 					<input type="submit" name="' . self::$login . '" value="login" />
-					<a href="?register">Register</a>
+					<a href="?register">Register a new user</a>
 				</fieldset>
 			</form>
 		';
@@ -113,7 +112,10 @@ class LoginView {
 
 	public function getUsername()
 	{
-		return $_POST[self::$name];		
+		if(isset($_POST[self::$name]))
+        {
+			return $_POST[self::$name];		
+        }
 	}
 
 	public function getPassword()
@@ -121,11 +123,6 @@ class LoginView {
 		return $_POST[self::$password];
 	}
 	
-	/**
-	 * Listens to logoutButton
-	 * 
-	 * @return bool
-	 */
 	public function logoutButton()
 	{
 		if(isset($_POST[self::$logout])) 
@@ -138,11 +135,6 @@ class LoginView {
 		}
 	}
 	
-	/**
-	 * Listens to loginbutton
-	 * 
-	 * @return bool
-	 */
 	public function post()
 	{
 		if(isset($_POST[self::$login]))

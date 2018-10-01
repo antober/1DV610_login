@@ -52,25 +52,18 @@ class LoginModel
 
         if($this->username == $this->userDAL->getUsername() && $this->password == $this->userDAL->getPassword()) 
         {
-            $this->check = true;
-        }
-        else
-        {
-            $this->check = false;
+            $_SESSION['username'] = $username;
+            $_SESSION['password'] = $password;
         }
     }
 
-    public function tryLogout()
+    public function removeSession()
     {
-        $this->check = false;
+        session_destroy();
     }
 
-    /**
-     * isLoggedIn returns check
-     * @return bool
-     */
     public function isLoggedIn()
     {
-        return $this->check;
+        return isset($_SESSION['username']) && isset($_SESSION['password']);
     }
 }

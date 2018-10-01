@@ -10,6 +10,7 @@ class LoginController
 
     /**
      * initLogin
+     * 
      * @return void
      */
     public function initLogin()
@@ -17,7 +18,7 @@ class LoginController
         
         if(!$this->lm->isLoggedIn())
         { 
-            if ($this->logv->post())
+            if($this->logv->post())
             {
                 try 
                 {
@@ -34,9 +35,12 @@ class LoginController
         
         if($this->logv->logoutButton() == true)
         {
-            $this->logv->statusMessages($this->logv->byebyeText());
-            $this->lm->tryLogout();
-        }
-        
+            // if($this->lm->isLoggedIn())
+            // {
+
+            // }
+            $this->logv->statusMessages($this->logv->logoutText());
+            $this->lm->removeSession();
+        } 
     }
 }

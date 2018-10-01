@@ -1,6 +1,6 @@
 <?php
     /**
-     * This is the starting point of the Login application
+     * Wkndswap.com
      * 
      * @author Anton Öberg
      * @version 1.0
@@ -18,7 +18,7 @@
      * Launches Login application
      */
     $mc = new MasterController();
-    $mc->LaunchApplication();
+    $mc->initMastercontroller();
 
 ?>
 

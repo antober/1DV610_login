@@ -27,4 +27,9 @@ class UserDAL
     {
         return $this->password;
     }
+
+    // public function addUser(User $user)
+    // {
+    //     echo $user;
+    // }
 }
