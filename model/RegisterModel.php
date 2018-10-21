@@ -4,25 +4,32 @@ class RegisterModel
 {
     private $usernameInput;
 	private $userPasswordInput;
-	private $reEnterPassword;
-	private $userDAL;
+	private $rePasswordInput;
+	private $dbh;
+	private $user;
 
-    public function __construct(uDAL $userDAL)
+    public function __construct(dbh $dbh)
     {
-        $this->userDAL = $userDAL;
+        $this->dbh = $dbh;
     }
 
-    public function tryRegister($Username, $Password, $reEnterPass){
-		
+    public function tryRegister(string $Username, string $Password, string $rePassword) : void
+    {
 		$this->usernameInput = trim($Username);
 		$this->userPasswordInput = trim($Password);
-		$this->reEnterPassword = trim($reEnterPass);
-	
-		if(!preg_match("/^[A-Za-z0-9]+$/", $Username))
+		$this->rePasswordInput = trim($rePassword);
+
+		if(!preg_match("/^[A-Za-z0-9]+$/", $this->usernameInput))
 		{
 			throw new Exception('Username contains invalid characters.');
 		}
-		else if(!preg_match("/^[A-Za-z0-9]+$/", $Password, $reEnterPassword))
+
+		else if(!preg_match("/^[A-Za-z0-9]+$/", $this->userPasswordInput))
+		{
+			throw new Exception('Password contains invalid characters.');
+		}
+
+		else if(!preg_match("/^[A-Za-z0-9]+$/", $this->rePasswordInput))
 		{
 			throw new Exception('Password contains invalid characters.');
 		}
@@ -31,21 +38,27 @@ class RegisterModel
 		{
 		 	throw new Exception("Username has too few characters, at least 3 characters.");
 		}
-		else if (mb_strlen($this->userPasswordInput) < 6) 
+
+		else if (mb_strlen($this->userPasswordInput) && mb_strlen($this->rePasswordInput) < 6) 
 		{
 		 	throw new Exception("Password has too few characters, at least 6 characters.");
 		}
-		else if ($this->reEnterPassword != $this->userPasswordInput) 
+
+		else if ($this->rePasswordInput != $this->userPasswordInput) 
 		{
 		 	throw new Exception ("Passwords do not match.");
 		}
-	
-		$user = $this->userDAL->getUser($this->usernameInput);
-			
-		if($user != null)
+
+		else if($this->dbh->userExist($this->usernameInput, $this->userPasswordInput))
 		{
-			throw new Exception("User exists, pick another username.");
+			throw new Exception("User already exist!");
+		}
 	
+		else
+		{
+			$this->user = new User($this->usernameInput, $this->userPasswordInput);
+			$this->dbh->insertUser($this->user);
+			
 		}
     }
 }

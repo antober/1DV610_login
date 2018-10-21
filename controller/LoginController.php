@@ -2,41 +2,50 @@
 
 class LoginController
 {
+    private $lv;
+    private $lm;
+
     public function __construct(LoginView $logv, LoginModel $lm) 
-    {
-        $this->logv = $logv;
+    {   
+        $this->lv = $logv;
         $this->lm = $lm;
     }
 
-    /**
-     * initLogin
-     * @return void
-     */
-    public function initLogin()
+    public function initLogin() : void
     {
-        
         if(!$this->lm->isLoggedIn())
         { 
-            if ($this->logv->post())
+            $this->actionLogIn();
+        }
+        else
+        {
+            $this->actionLogout();
+        }
+    }
+
+    private function actionLogIn() : void
+    {
+        if($this->lv->loginButton())
+        {
+            try
             {
-                try 
-                {
-                    $this->lm->tryLogin($this->logv->getUsername(), $this->logv->getPassword());
-                    $this->logv->statusMessages($this->logv->welcomeText());          
-                }
-            
-                catch (exception $e)
-                {
-                    $this->logv->statusMessages($e->getMessage());
-                }
+                $this->lm->tryLogin($this->lv->getUsername(), $this->lv->getPassword());
+                //$this->lv->showMessage($this->lv->welcomeText());
+            }
+            catch (exception $e)
+            {
+                $this->lv->showMessage($e->getMessage());
             }
         }
-        
-        if($this->logv->logoutButton() == true)
+    }
+
+    private function actionLogout() : void
+    {
+        if($this->lv->logoutButton())
         {
-            $this->logv->statusMessages($this->logv->byebyeText());
-            $this->lm->tryLogout();
+            $this->lm->removeSession();
+            header('location: http://localhost:8888/1DV610_login/');
         }
-        
+        //$this->lv->showMessage($this->lv->logoutText());
     }
 }

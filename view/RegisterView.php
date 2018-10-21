@@ -2,16 +2,22 @@
 
 class RegisterView
 {
-    private static $messageId = 'registerView::Message';
-    private static $register = 'registerView::register';
-    private static $regName = 'registerView::regUsername';
-    private static $regPassword = 'registerView::regPassword';
-    private static $regRePassword = 'registerView::regRePassword';
+    private static $Message = "RegisterView::Message";
+    private static $Register = "RegisterView::Register";
+    private static $UserName = "RegisterView::UserName";
+    private static $Password = "RegisterView::Password";
+    private static $PasswordRepeat = "RegisterView::PasswordRepeat";
     private $message;
+    private $rm;
 
-    public function registerPost()
+    public function __construct(RegisterModel $rm)
     {
-        if(isset($_POST[self::$register]))
+        $this->rm = $rm;
+    }
+
+    public function registerPost() : bool
+    {
+        if(isset($_POST[self::$Register]))
         {
             return true;
         }
@@ -21,67 +27,78 @@ class RegisterView
         }
     }
         
-    public function getRegName()
+    public function getUserName() : string
     {	
-        if(isset($_POST[self::$regName]))
+        if(isset($_POST[self::$UserName]))
         {
-            return $_POST[self::$regName];
+            return $_POST[self::$UserName];
+        }
+        else
+        {
+            return '';
         }
     }
         
-    public function getRegPassword()
+    public function getPassword() : string
     {	
-        if(isset($_POST[self::$regPassword]))
+        if(isset($_POST[self::$Password]))
         {
-            return $_POST[self::$regPassword];
+            return $_POST[self::$Password];
+        }
+        else
+        {
+            return '';
         }
     }
     
-    public function getRegRePassword()
+    public function getPasswordRepeat() : string
     {		
-        if(isset($_POST[self::$regRePassword]))
+        if(isset($_POST[self::$PasswordRepeat]))
         {
-            return $_POST[self::$regRePassword];
+            return $_POST[self::$PasswordRepeat];
+        }
+        else
+        {
+            return '';
         }
     }
     
-    public function actionMessages($message)
+    public function statusMessages(string $message) : void
     {	
         $this->message = $message;
     }
     
-    public function response() 
+    public function response() : string
     {
-    
-        $response = "";
+        $response = '';
         
         if(isset($_GET["register"]))
         {
-            $response = $this->generateRegistrationFormHTML($this->message);
+            $response = $this->generateRegistrationFormHTML();
         }
         return $response;
     }
 
 
-    private function generateRegistrationFormHTML() 
+    private function generateRegistrationFormHTML() : string
     {
         return 
         '
             <a href="?login">Back to login</a>
             <form method="post" >
                     <fieldset>
-                        <p id="' . self::$messageId . '">' . $this->message . '</p>
+                        <p id="' . self::$Message . '">' . $this->message . '</p>
                         <legend>Register a new user - Write a username and password</legend>
                         
-                        <label for="' . self::$regName . '">Username :</label>
-                        <input type="text" id="' . self::$regName . '" name="' . self::$regName . '"  /></br>
-                        <label for="' . self::$regPassword . '">Password :</label>
-                        <input type="password" id="' . self::$regPassword . '" name="' . self::$regPassword . '" /></br>
-                        <label for="' . self::$regRePassword . '">Repeat Password :</label>
-                        <input type="password" id="' . self::$regRePassword . '" name="' . self::$regRePassword . '" /></br>
-                        <input type="submit" name="' . self::$register . '" value="Register" />
+                        <label for="' . self::$UserName . '">Username :</label>
+                        <input type="text" id="' . self::$UserName . '" name="' . self::$UserName . '" value="' .$this->getUserName() . '"  />
+                        <label for="' . self::$Password . '">Password :</label>
+                        <input type="password" id="' . self::$Password . '" name="' . self::$Password . '" />
+                        <label for="' . self::$PasswordRepeat . '">Repeat Password :</label>
+                        <input type="password" id="' . self::$PasswordRepeat . '" name="' . self::$PasswordRepeat . '" />
+                        <input type="submit" name="' . self::$Register . '" value="Register" />
                     </fieldset>
             </form>
         ';
-		}
+	}
 }

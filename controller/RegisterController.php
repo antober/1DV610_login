@@ -2,31 +2,28 @@
 
 class RegisterController
 {
-    private $regm;
-    private $regv;
+    private $rm;
+    private $rv;
 
-    public function __contruct(RegisterModel $rm, RegisterView $rv)
+    public function __construct(RegisterModel $rm, RegisterView $rv)
     {
-        $this->rm = $regm;
-        $this->rv = $regv;
+        $this->rm = $rm;
+        $this->rv = $rv;
     }
 
-    public function initRegister()
+    public function initRegister() : void
     {
-        if($this->regv->registerPost())
-		{
-			try
-			{
-				$this->regUsername = $this->regView->getRegName();
-				$this->regPassword = $this->regView->getRegPassword();
-				$this->regReEnterPass = $this->regView->getRegRePassword();
-			
-				$this->regModel->tryRegister($this->regUsername, $this->regPassword, $this->regReEnterPass);
-			}
-			catch(Exception $e)
-			{
-				$this->regView->actionMessages($e->getMessage());
-			}
-		}
+        if($this->rv->registerPost())
+        {
+            try
+            {
+                $this->rm->tryRegister($this->rv->getUserName(), 
+                $this->rv->getPassword(), $this->rv->getPasswordRepeat());
+            }
+            catch(Exception $e)
+            {
+                $this->rv->statusMessages($e->getMessage());
+            }
+        }
     }
 }

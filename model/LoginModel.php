@@ -4,23 +4,15 @@ class LoginModel
 {
     private $username;
     private $passWord;
-    private $message;
-    private $check;
+    private $dbh;
 
-    public function __construct($userDAL)
+    public function __construct(dbh $dbh)
     {
-        $this->userDAL = $userDAL;
+        $this->dbh = $dbh;
     }
 
-    /**
-     * tryLogin checks if fieldinputs are empty
-     * Authenticates user to UserDAL
-     * 
-     * @throws Exception
-     * @return Void
-     */
-
-    public function tryLogin($username, $password)    {
+    public function tryLogin(string $username, string $password) : void
+    {
         $this->username = $username;
         $this->password = $password;
         
@@ -39,38 +31,40 @@ class LoginModel
             throw new Exception('Username and Password is missing');
         }
 
-        if($this->username == $this->userDAL->getUsername() && $this->password != $this->userDAL->getPassword())
-        {
-            throw new Exception('Wrong name or password');
-        }
+        // if($this->username == $this->uDAL->getUsername() && $this->password != $this->uDAL->getPassword())
+        // {
+        //     throw new Exception('Wrong name or password');
+        // }
 
-        if($this->username != $this->userDAL->getUsername() && $this->password == $this->userDAL->getPassword())
-        {
-            //TODO: fix bug where welcome is being rendered here
-            throw new Exception('Wrong name or password');
-        }
+        // if($this->username != $this->uDAL->getUsername() && $this->password == $this->uDAL->getPassword())
+        // {
+        //     throw new Exception('Wrong name or password');
+        // }
 
-        if($this->username == $this->userDAL->getUsername() && $this->password == $this->userDAL->getPassword()) 
+        // if($this->username == $this->uDAL->getUsername() && $this->password == $this->uDAL->getPassword()) 
+        // {
+        //     $this->setSession($username, $password);
+        // }
+
+        if($this->dbh->getUser($this->username, $this->password)) 
         {
-            $this->check = true;
-        }
-        else
-        {
-            $this->check = false;
+            $this->setSession($username, $password);
         }
     }
 
-    public function tryLogout()
+    public function removeSession() : void
     {
-        $this->check = false;
+        session_destroy();
     }
 
-    /**
-     * isLoggedIn returns check
-     * @return bool
-     */
-    public function isLoggedIn()
+    public function isLoggedIn() : bool
     {
-        return $this->check;
+        return isset($_SESSION['username']) && isset($_SESSION['password']);
+    }
+
+    private function setSession(string $username, string $password) : void
+    {
+        $_SESSION['username'] = $username;
+        $_SESSION['password'] = $password;
     }
 }

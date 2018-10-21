@@ -1,8 +1,5 @@
 <?php
-    /**
-     * User object 
-     * 
-     */
+   
     class User
     {
         private $username;
@@ -24,4 +21,3 @@
             return $this->password;
         }
     }
-?>
