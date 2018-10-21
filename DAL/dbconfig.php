@@ -8,7 +8,7 @@
 
 //Server
 
-define('DB_SERVERNAME', 'eu-cdbr-west-02.cleardb.net');
-define('DB_USERNAME', 'b8ab505b5a14b4');
-define('DB_PASSWORD', '116ef25f');
-define('DB_NAME', 'heroku_6e601eb7379d699');
+define('DB_SERVERNAME', 'us-cdbr-iron-east-01.cleardb.net');
+define('DB_USERNAME', 'b3b5ed62df7eb4');
+define('DB_PASSWORD', '2cb303e3');
+define('DB_NAME', 'heroku_3915a76deec2d98');
