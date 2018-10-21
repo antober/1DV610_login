@@ -20,6 +20,7 @@ class LoginController
         else
         {
             $this->actionLogout();
+            $this->lv->showMessage($this->lv->welcomeText());
         }
     }
 
@@ -30,7 +31,6 @@ class LoginController
             try
             {
                 $this->lm->tryLogin($this->lv->getUsername(), $this->lv->getPassword());
-                //$this->lv->showMessage($this->lv->welcomeText());
             }
             catch (exception $e)
             {
@@ -39,13 +39,17 @@ class LoginController
         }
     }
 
+    //Couldnt solve issue where pressing logout button didnt change layout view
+    // to login view at once.
+    //Bug: logoutbutton had to be pressed twice to get the proper view.
+    //Temp fix: header location
     private function actionLogout() : void
     {
         if($this->lv->logoutButton())
         {
             $this->lm->removeSession();
+            $this->lv->showMessage($this->lv->logoutText());
             header('location: https://php-login-app-.herokuapp.com/');
         }
-        //$this->lv->showMessage($this->lv->logoutText());
     }
 }

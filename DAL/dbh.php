@@ -3,10 +3,6 @@ include_once('dbconfig.php');
 
 class dbh
 {
-    private $servername = "localhost";
-    private $username = "root";
-    private $password = "root";
-    private $dbname = "loginDB";
     private $conn;
 
     private function openSqlConn()
@@ -18,21 +14,6 @@ class dbh
             die("Connection failed: " . $conn->connect_error);
         }
         return $conn;
-    }
-
-    public function createTable()
-    {
-        $this->conn = $this->openSqlConn();
-
-        $sql = "CREATE TABLE posts (
-            id int,
-            author varchar(255),
-            post varchar(255)
-        );";
-
-        $this->conn->query($sql);
-
-        $this->conn->close();
     }
 
     public function insertUser(User $user) : void

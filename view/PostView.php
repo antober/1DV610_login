@@ -55,6 +55,7 @@ class PostView
         return $posts;
     }
 
+    //Textarea changed to input because empty field validation failed.
     private function generatePostFormHTML() : string
 	{
         return 
@@ -66,8 +67,7 @@ class PostView
 
             <form method="post">
             <br>
-            <textarea rows="4" cols="50" name="' . self::$postContent . '">
-            </textarea>
+            <input type="text" name="' . self::$postContent . '"/>
             <input type="submit" name="' . self::$postButton . '" value="Post" />
             </form>
 		';

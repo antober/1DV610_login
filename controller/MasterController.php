@@ -49,10 +49,6 @@
                 $lc->initLogin();
                 $pc->initPost();
                 $pc->initVote();
-                if($lm->isLoggedIn())
-                {
-                    $dbh->getAllPosts();
-                }
                 $layv->render($lm->isLoggedIn(), $logv, $pv, $dtv);
             }
         }

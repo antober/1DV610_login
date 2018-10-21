@@ -21,7 +21,7 @@ class LoginModel
             throw new Exception('Username is missing');
         }
 
-        if($this->password == '')
+        else if($this->password == '')
         {
             throw new Exception('Password is missing');
         }
@@ -31,22 +31,12 @@ class LoginModel
             throw new Exception('Username and Password is missing');
         }
 
-        // if($this->username == $this->uDAL->getUsername() && $this->password != $this->uDAL->getPassword())
-        // {
-        //     throw new Exception('Wrong name or password');
-        // }
+        else if(!$this->dbh->getUser($this->username, $this->password))
+        {
+            throw new Exception('Wrong name or password');
+        }
 
-        // if($this->username != $this->uDAL->getUsername() && $this->password == $this->uDAL->getPassword())
-        // {
-        //     throw new Exception('Wrong name or password');
-        // }
-
-        // if($this->username == $this->uDAL->getUsername() && $this->password == $this->uDAL->getPassword()) 
-        // {
-        //     $this->setSession($username, $password);
-        // }
-
-        if($this->dbh->getUser($this->username, $this->password)) 
+        else
         {
             $this->setSession($username, $password);
         }

@@ -58,7 +58,6 @@ class RegisterModel
 		{
 			$this->user = new User($this->usernameInput, $this->userPasswordInput);
 			$this->dbh->insertUser($this->user);
-			
 		}
     }
 }

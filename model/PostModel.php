@@ -13,7 +13,7 @@ class PostModel
     {
         if(empty($post))
         {
-            throw new Exception("Post must have content.");
+            throw new Exception("Post must have content");
         }
         $filteredPost = strip_tags($post);
 
