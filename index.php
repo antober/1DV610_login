@@ -6,7 +6,6 @@
     error_reporting(E_ALL);
     ini_set('display_errors', 'On');
     
-    //TODO: Add namespaces
     
     $mc = new MasterController();
     $mc->initMastercontroller();

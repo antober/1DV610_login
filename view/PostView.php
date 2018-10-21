@@ -6,6 +6,8 @@ class PostView
     private static $postContent = 'PostView::postContent';
     private static $voteButton = 'PostView::voteButton';
     private static $postID = "PostView::postID";
+    private static $messageId = 'LoginView::Message';
+	private $message;
     private $lm;
     private $dbh;
 
@@ -14,6 +16,11 @@ class PostView
         $this->lm = $lm;
         $this->dbh = $dbh;
     }
+
+    public function showMessage(string $message) : void
+	{
+		$this->message = $message;
+	}
 
     public function response() : string
 	{
@@ -52,6 +59,7 @@ class PostView
 	{
         return 
         '
+            <p id="' . self::$messageId . '">' . $this->message . '</p>
             <div>
                 ' . $this->generateAllPosts() . '
             </div>

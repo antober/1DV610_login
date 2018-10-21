@@ -13,9 +13,16 @@ class PostController
 
     public function initPost() : void
     {
-        if($this->pv->isPosted())
+        try
         {
-            $this->pm->tryPost($this->pv->getPost());    
+            if($this->pv->isPosted())
+            {
+                $this->pm->tryPost($this->pv->getPost());    
+            }
+        }
+        catch(Exception $e)
+        {
+            $this->pv->showMessage($e->getMessage());
         }
     }
 

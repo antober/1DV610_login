@@ -44,7 +44,7 @@ class LoginController
         if($this->lv->logoutButton())
         {
             $this->lm->removeSession();
-            header('location: http://localhost:8888/1DV610_login/');
+            header('location: https://php-login-app-.herokuapp.com/');
         }
         //$this->lv->showMessage($this->lv->logoutText());
     }

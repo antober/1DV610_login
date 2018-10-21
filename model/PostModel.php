@@ -11,7 +11,7 @@ class PostModel
 
     public function tryPost(string $post) : void
     {
-        if(empty($post) && null)
+        if(empty($post))
         {
             throw new Exception("Post must have content.");
         }
