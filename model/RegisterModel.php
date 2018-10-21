@@ -34,12 +34,12 @@ class RegisterModel
 			throw new Exception('Password contains invalid characters.');
 		}
 		
-		else if (mb_strlen($this->usernameInput) < 3) 
+		else if (strlen($this->usernameInput) < 3) 
 		{
 		 	throw new Exception("Username has too few characters, at least 3 characters.");
 		}
 
-		else if (mb_strlen($this->userPasswordInput) && mb_strlen($this->rePasswordInput) < 6) 
+		else if (strlen($this->userPasswordInput) && strlen($this->rePasswordInput) < 6) 
 		{
 		 	throw new Exception("Password has too few characters, at least 6 characters.");
 		}

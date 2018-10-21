@@ -60,7 +60,7 @@ class dbh
     {
         $this->conn = $this->openSqlConn();
 
-        $sql = "SELECT * FROM users WHERE name='$name' AND password='$pwd';";
+        $sql = "SELECT * FROM users WHERE BINARY name='$name' AND password='$pwd';";
         
         $result = $this->conn->query($sql);
 
@@ -80,7 +80,7 @@ class dbh
     {
         $this->conn = $this->openSqlConn();
 
-        $sql = "SELECT * FROM users WHERE name='$name';";
+        $sql = "SELECT * FROM users WHERE BINARY name='$name';";
         
         $result = $this->conn->query($sql);
 
