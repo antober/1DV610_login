@@ -49,7 +49,7 @@ class PostView {
                         ' . $this->generateUpVoteButtonHTML() . '
                         <input name="' . self::$postID . '" value="' . $post['id'] . '" type="hidden"/>
                         ' . $this->generateDownVoteButtonHTML() . '
-                    </form>
+                        </form>
                     <div class="' .self::$postBody. '">
                         ' . $post['content']. '
                     </div>
@@ -92,7 +92,6 @@ class PostView {
     }
 
     private function generatePostFormHTML() : string {
-
         return 
         '
             <p id="' . self::$messageId . '">' . $this->message . '</p>
@@ -109,7 +108,6 @@ class PostView {
     }
     
     public function getPost() : string {
-
         if(isset($_POST[self::$postContent])){
 			return $_POST[self::$postContent];
 		} else {
@@ -118,7 +116,6 @@ class PostView {
     }
 
     public function isPosted() : bool {
-
         if(isset($_POST[self::$postButton])) {
 			return true;
 		} else {
@@ -127,7 +124,6 @@ class PostView {
     }
 
     public function isDownVoted() : bool {
-
         if(isset($_POST[self::$downvoteButton])) {
             return isset($_POST[self::$downvoteButton]);
 		} else {
@@ -136,7 +132,6 @@ class PostView {
     }
 
     public function isUpVoted() : bool {
-
         if(isset($_POST[self::$upvoteButton])) {
             return isset($_POST[self::$upvoteButton]);
 		} else {
