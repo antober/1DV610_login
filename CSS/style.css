@@ -1,8 +1,16 @@
-.postDiv
+.postContainer
 {
     padding: 20px;
     border-style: solid;
     border-width: 1px;
     width: 300px;
-    background-color: red;
 }
+
+.postBody
+{
+    max-height: 400px;
+    width: 250px;
+    word-wrap: break-word;
+    overflow-y:scroll;
+}
+

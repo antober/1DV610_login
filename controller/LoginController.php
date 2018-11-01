@@ -11,8 +11,7 @@ class LoginController {
         $this->s = $s;
     }
 
-    public function initLogin() : void
-    {
+    public function initLogin() : void {
         if(!$this->lm->isLoggedIn()) { 
             $this->doActionLogIn();
         } else {
@@ -24,7 +23,7 @@ class LoginController {
         if($this->lv->loginButton()) {
             try {
                 $this->lm->tryActionLogin($this->lv->getUsername(), $this->lv->getPassword());
-                $this->lv->showMessage($this->lv->showWelcomeText());
+                //$this->lv->showMessage($this->lv->showWelcomeText());
             } catch (exception $e) {
                 $this->lv->showMessage($e->getMessage());
             }
