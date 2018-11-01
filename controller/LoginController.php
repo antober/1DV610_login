@@ -3,10 +3,12 @@
 class LoginController {
     private $lv;
     private $lm;
+    private $s;
 
-    public function __construct(LoginView $logv, LoginModel $lm) {   
+    public function __construct(LoginView $logv, LoginModel $lm, Session $s) {   
         $this->lv = $logv;
         $this->lm = $lm;
+        $this->s = $s;
     }
 
     public function initLogin() : void
@@ -15,7 +17,6 @@ class LoginController {
             $this->doActionLogIn();
         } else {
             $this->doActionLogout();
-            $this->lv->showMessage($this->lv->showWelcomeText());
         }
     }
 
@@ -23,6 +24,7 @@ class LoginController {
         if($this->lv->loginButton()) {
             try {
                 $this->lm->tryActionLogin($this->lv->getUsername(), $this->lv->getPassword());
+                $this->lv->showMessage($this->lv->showWelcomeText());
             } catch (exception $e) {
                 $this->lv->showMessage($e->getMessage());
             }
@@ -31,9 +33,7 @@ class LoginController {
 
     private function doActionLogout() : void {
         if($this->lv->logoutButton())
-            $this->lm->removeSession();
-            $this->lv->showMessage($this->lv->showLogoutText());
-            //header('location: http://localhost:8888/1DV610_login/');
-            //header('location: https://php-login-app-.herokuapp.com/');
+            $this->s->removeSession();
+            //$this->lv->showMessage($this->lv->showLogoutText());
     }
 }

@@ -1,10 +1,8 @@
 <?php
 
-class LayoutView 
-{
+class LayoutView {
   
-  public function render($isLoggedIn, $v, PostView $pv, DateTimeView $dtv) : void
-  {
+  public function render($isLoggedIn, $v, PostView $pv, DateTimeView $dtv) : void {
     echo '<!DOCTYPE html>
       <html>
         <head>
@@ -27,15 +25,10 @@ class LayoutView
     ';
   }
   
-  private function renderIsLoggedIn($isLoggedIn) : string
-  {
+  private function renderIsLoggedIn(bool $isLoggedIn) : string {
     if ($isLoggedIn) 
-    {
-      return '<h2>Logged in</h2>';
-    }
+        return '<h2>Logged in</h2>';
     else 
-    {
-      return '<h2>Not logged in</h2>';
-    }
+        return '<h2>Not logged in</h2>';
   }
 }

@@ -4,9 +4,11 @@ class LoginModel {
     private $username;
     private $passWord;
     private $dbh;
+    private $s;
 
-    public function __construct(dbh $dbh) {
+    public function __construct(dbh $dbh, Session $s) {
         $this->dbh = $dbh;
+        $this->s = $s;
     }
 
     public function tryActionLogin(string $username, string $password) : void {
@@ -22,19 +24,12 @@ class LoginModel {
         else if(!$this->dbh->getUser($this->username, $this->password))
             throw new Exception('Wrong name or password');
         else 
-            $this->setSession($username, $password);
-    }
-
-    public function removeSession() : void {
-        session_destroy();
+            $this->s->setSession($username, $password);
     }
 
     public function isLoggedIn() : bool {
         return isset($_SESSION['username']) && isset($_SESSION['password']);
     }
 
-    private function setSession(string $username, string $password) : void {
-        $_SESSION['username'] = $username;
-        $_SESSION['password'] = $password;
-    }
+    
 }

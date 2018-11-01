@@ -13,43 +13,34 @@ class LoginView
 	private $message;
 	private $lm;
 
-	public function __construct(LoginModel $lm) 
-	{
+	public function __construct(LoginModel $lm) {
 		$this->lm = $lm;
 	}
 
-	public function showMessage(string $message) : void
-	{
+	public function showMessage(string $message) : void {
 		$this->message = $message;
 	}
 	
-	public function showWelcomeText() : string
-	{
+	public function showWelcomeText() : string {
 	 	return 'Welcome';
 	}
 	
-	public function showLogoutText() : string
-	{
+	public function showLogoutText() : string {
 		return 'Bye bye!';
 	}
 
-	public function response() : string
-	{
+	public function response() : string {
 		$response = '';
 
-		if ($this->lm->isloggedin())
-		{
+		if ($this->lm->isloggedin()) 
 			$response = $this->generateLogoutButtonHTML();
-		}
 		else
-		{
 			$response = $this->generateLoginFormHTML();
-		}
+		
 		return $response;
 	}
 
-	private function generateLogoutButtonHTML() : string
-	{
+	private function generateLogoutButtonHTML() : string {
 		return '
 			<form  method="post" >
 				<p id="' . self::$messageId . '">' . $this->message .'</p>
@@ -58,8 +49,8 @@ class LoginView
 		';
 	}
 	
-	private function generateLoginFormHTML() : string
-	{
+	private function generateLoginFormHTML() : string {
+		if(!$this->lm->isLoggedin())
 		return '
 			<a href="?register">Register a new user</a>
 			<form method="post" > 
@@ -82,51 +73,33 @@ class LoginView
 		';
 	}
 
-	public function getUsername() : string
-	{
+	public function getUsername() : string {
+		
 		if(isset($_POST[self::$name]))
-        {
 			return $_POST[self::$name];		
-		}
 		else
-        {
             return '';
-        }
 	}
 
-	public function getPassword() : string
-	{
+	public function getPassword() : string {
 		if(isset($_POST[self::$password]))
-		{
 			return $_POST[self::$password];
-		}
 		else
-        {
             return '';
-        }
 	}
 	
-	public function logoutButton() : bool
-	{
+	public function logoutButton() : bool {
+		
 		if(isset($_POST[self::$logout])) 
-		{
 			return true;
-		}
 		else
-		{
 			return false;
-		}
 	}
 	
-	public function loginButton() : bool
-	{
+	public function loginButton() : bool {
 		if(isset($_POST[self::$login]))
-		{
 			return true;
-		}
 		else
-		{
 			return false;
-		}
 	}	
 }

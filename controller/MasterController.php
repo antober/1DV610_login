@@ -17,6 +17,7 @@
     require_once('model/LoginModel.php');
     require_once('model/PostModel.php');
     require_once('model/User.php');
+    require_once('model/Session.php');
     
     require_once('DAL/dbh.php');
 
@@ -27,7 +28,8 @@
             $dbh = new dbh();
             $dtv = new DateTimeView();
             $layv = new LayoutView();
-            $lm = new LoginModel($dbh);
+            $s = new Session();
+            $lm = new LoginModel($dbh, $s);
             $rm = new RegisterModel($dbh);
             $pm = new PostModel($dbh);
             $pv = new PostView($lm, $dbh);
@@ -39,7 +41,7 @@
                 $layv->render($lm->isLoggedIn(), $rv, $pv, $dtv);
             } else {
                 $logv = new LoginView($lm);
-                $lc = new LoginController($logv, $lm);
+                $lc = new LoginController($logv, $lm, $s);
                 $pc = new PostController($pv, $pm);
                 $lc->initLogin();
                 $pc->initPost();
