@@ -23,12 +23,12 @@ class LoginView
 		$this->message = $message;
 	}
 	
-	public function welcomeText() : string
+	public function showWelcomeText() : string
 	{
 	 	return 'Welcome';
 	}
 	
-	public function logoutText() : string
+	public function showLogoutText() : string
 	{
 		return 'Bye bye!';
 	}

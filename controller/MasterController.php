@@ -21,10 +21,9 @@
     require_once('DAL/dbh.php');
 
     
-    class MasterController 
-    {
-        public function initMastercontroller() : void
-        {
+    class MasterController {
+        
+        public function initMastercontroller() : void {
             $dbh = new dbh();
             $dtv = new DateTimeView();
             $layv = new LayoutView();
@@ -33,16 +32,12 @@
             $pm = new PostModel($dbh);
             $pv = new PostView($lm, $dbh);
             
-            if(isset($_GET["register"]))
-            {
+            if(isset($_GET["register"])) {
                 $rv = new RegisterView($rm);
                 $rc = new RegisterController($rm, $rv);
                 $rc->initRegister();
                 $layv->render($lm->isLoggedIn(), $rv, $pv, $dtv);
-            }
-            else
-            {
-                
+            } else {
                 $logv = new LoginView($lm);
                 $lc = new LoginController($logv, $lm);
                 $pc = new PostController($pv, $pm);

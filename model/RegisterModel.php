@@ -51,7 +51,7 @@ class RegisterModel
 
 		else if($this->dbh->userExist($this->usernameInput, $this->userPasswordInput))
 		{
-			throw new Exception("User already exist!");
+			throw new Exception("User already exist.");
 		}
 	
 		else

@@ -1,29 +1,21 @@
 <?php
 
-class RegisterController
-{
+class RegisterController {
     private $rm;
     private $rv;
 
-    public function __construct(RegisterModel $rm, RegisterView $rv)
-    {
+    public function __construct(RegisterModel $rm, RegisterView $rv) {
         $this->rm = $rm;
         $this->rv = $rv;
     }
 
-    public function initRegister() : void
-    {
+    public function initRegister() : void {
         if($this->rv->registerPost())
-        {
-            try
-            {
+            try {
                 $this->rm->tryRegister($this->rv->getUserName(), 
                 $this->rv->getPassword(), $this->rv->getPasswordRepeat());
-            }
-            catch(Exception $e)
-            {
+            } catch(Exception $e) {
                 $this->rv->statusMessages($e->getMessage());
-            }
         }
     }
 }
