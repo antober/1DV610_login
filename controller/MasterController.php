@@ -20,9 +20,10 @@
     require_once('model/Session.php');
     
     require_once('DAL/dbh.php');
-
     
     class MasterController {
+        
+        private static $register = 'register';
         
         public function initMastercontroller() : void {
             $dbh = new dbh();
@@ -31,10 +32,10 @@
             $s = new Session();
             $lm = new LoginModel($dbh, $s);
             $rm = new RegisterModel($dbh);
-            $pm = new PostModel($dbh);
+            $pm = new PostModel($dbh,$s);
             $pv = new PostView($lm, $dbh);
             
-            if(isset($_GET["register"])) {
+            if(isset($_GET[self::$register])) {
                 $rv = new RegisterView($rm);
                 $rc = new RegisterController($rm, $rv);
                 $rc->initRegister();
@@ -45,7 +46,7 @@
                 $pc = new PostController($pv, $pm);
                 $lc->initLogin();
                 $pc->initPost();
-                $pc->initVote();
+                // $pc->initPostAction();
                 $layv->render($lm->isLoggedIn(), $logv, $pv, $dtv);
             }
         }

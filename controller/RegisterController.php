@@ -1,6 +1,7 @@
 <?php
 
 class RegisterController {
+    
     private $rm;
     private $rv;
 
@@ -12,7 +13,7 @@ class RegisterController {
     public function initRegister() : void {
         if($this->rv->registerPost())
             try {
-                $this->rm->tryRegister($this->rv->getUserName(), 
+                $this->rm->tryActionRegister($this->rv->getUserName(), 
                 $this->rv->getPassword(), $this->rv->getPasswordRepeat());
             } catch(Exception $e) {
                 $this->rv->statusMessages($e->getMessage());

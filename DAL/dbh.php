@@ -2,6 +2,7 @@
 include_once('dbconfig.php');
 
 class dbh {
+    
     private $conn;
 
     private function openSqlConn() {
@@ -84,6 +85,17 @@ class dbh {
         $this->conn = $this->openSqlConn();
         $sql = "UPDATE posts SET upvotes = upvotes - 1 WHERE id = '$postID'";
         $this->conn->query($sql);
+
+        $this->conn->close();
+    }
+
+    public function deletePost($postID) {
+        $this->conn = $this->openSqlConn();
+        $sql = "DELETE FROM posts WHERE id = '$postID'";
+        echo $sql;
+        debug_print_backtrace();
+        $this->conn->query($sql);
+        
 
         $this->conn->close();
     }

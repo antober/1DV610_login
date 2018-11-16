@@ -1,7 +1,8 @@
 <?php
-require_once('Exceptions.php');
+//include_once('Exceptions.php');
 
 class RegisterModel {
+	
     private $usernameInput;
 	private $userPasswordInput;
 	private $rePasswordInput;
@@ -12,7 +13,7 @@ class RegisterModel {
         $this->dbh = $dbh;
     }
 
-    public function tryRegister(string $Username, string $Password, string $rePassword) : void {
+    public function tryActionRegister(string $Username, string $Password, string $rePassword) : void {
 		$this->usernameInput = trim($Username);
 		$this->userPasswordInput = trim($Password);
 		$this->rePasswordInput = trim($rePassword);

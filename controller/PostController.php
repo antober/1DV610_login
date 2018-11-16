@@ -1,6 +1,7 @@
 <?php
 
 class PostController {
+    
     private $pv;
     private $pm;
 
@@ -12,17 +13,34 @@ class PostController {
     public function initPost() : void {
         try {
             if($this->pv->isPosted())
-                $this->pm->tryActionPost($this->pv->getPost());    
+                $this->userWantsToPost();
+
+            if($this->pv->isUpVoted())
+                $this->userWantsToUpvote();
+
+            if($this->pv->isDownVoted())
+                $this->userWantsToDownvote();
+
+            if($this->pv->isDeleted())
+                $this->userWantsToDeletePost();
         } catch(Exception $e) {
             $this->pv->showMessage($e->getMessage());
         }
     }
 
-    public function initVote() : void {
-        if($this->pv->isUpVoted())
-            $this->pm->doActionVote($this->pv->getPostID());
-        
-        if($this->pv->isDownVoted())
-            $this->pm->doActionDownVote($this->pv->getPostID());
+    private function userWantsToPost() : void {
+        $this->pm->doActionPost($this->pv->getPost());
+    }
+
+    private function userWantsToUpvote() : void {
+        $this->pm->doActionVote($this->pv->getPostID());
+    }
+
+    private function userWantsToDownvote() : void {
+        $this->pm->doActionDownVote($this->pv->getPostID());
+    }
+
+    private function userWantsToDeletePost() : void {
+        $this->pm->doActionDelete($this->pv->getPostID());  
     }
 }

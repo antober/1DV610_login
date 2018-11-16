@@ -1,6 +1,8 @@
 <?php
+//include_once('Exceptions.php');
 
 class LoginModel {
+    
     private $username;
     private $passWord;
     private $dbh;
@@ -17,20 +19,15 @@ class LoginModel {
         
         if($this->username == '')
             throw new UsernameMissing('Username is missing');
-
         else if($this->password == '')
             throw new PasswordMissing('Password is missing');
-
         else if(!$this->dbh->getUser($this->username, $this->password))
             throw new WrongCredentials('Wrong name or password');
-            
         else 
-            $this->s->setSession($username, $password);
+            $this->s->setSession($username);
     }
 
     public function isLoggedIn() : bool {
-        return isset($_SESSION['username']) && isset($_SESSION['password']);
+        return $this->s->getUserSession() !== null;
     }
-
-    
 }
