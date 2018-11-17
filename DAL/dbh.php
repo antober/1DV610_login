@@ -1,6 +1,6 @@
 <?php
-include_once('dbconfig.php');
-include_once('Exceptions.php');
+include('dbconfig.php');
+include('Exceptions.php');
 
 class dbh {
     
