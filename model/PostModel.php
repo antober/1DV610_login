@@ -19,20 +19,18 @@ class PostModel {
     }
 
     public function doActionVote(int $postID) : void {
-        echo 'doActionVote';
-        debug_print_backtrace();
         $this->dbh->updateAfterUpvote($postID);
     }
 
     public function doActionDownvote(int $postID) : void {
-        echo 'doActionDownvote';
-        debug_print_backtrace();
         $this->dbh->updateAfterDownvote($postID);
     }
 
-    public function doActionDelete($postID) : void {
-        echo 'doActionDelete';
-        debug_print_backtrace();
-        $this->dbh->deletePost($postID);
+    public function doActionDelete($postID, $author) : void {
+        if($this->s->getUserSession() === $author) {
+            $this->dbh->deletePost($postID);
+        } else {
+            throw new Exception("Not owner of post");
+        }
     }
 }

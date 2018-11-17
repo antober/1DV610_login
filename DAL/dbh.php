@@ -84,8 +84,7 @@ class dbh {
     public function deletePost($postID) {
         $this->conn = $this->openSqlConn();
         $sql = "DELETE FROM posts WHERE id = '$postID'";
-        echo $sql;
-        debug_print_backtrace();
+
         $this->conn->query($sql);
         
 

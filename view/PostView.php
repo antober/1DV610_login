@@ -9,6 +9,7 @@ class PostView {
     private static $downvoteButton = 'PostView::downvoteButton';
     private static $deleteButton = 'PostView::deleteButton';
     private static $postID = "PostView::postID";
+    private static $author = 'PostView::author';
     private static $postContainer = 'postContainer';
     private static $postInfo = 'postInfo';
     private static $postBody = 'postBody';
@@ -18,10 +19,12 @@ class PostView {
 	private $message;
     private $lm;
     private $dbh;
+    private $s;
 
-    public function __construct(LoginModel $lm, dbh $dbh) {
+    public function __construct(LoginModel $lm, dbh $dbh, $s) {
         $this->lm = $lm;
         $this->dbh = $dbh;
+        $this->s = $s;
     }
 
     public function response() : string {
@@ -47,8 +50,6 @@ class PostView {
 
     public function isPosted() : bool {
         if(isset($_POST[self::$postButton])) {
-            echo 'isPosted';
-            debug_print_backtrace();
 			return isset($_POST[self::$postButton]);
 		} else {
 			return false;
@@ -57,8 +58,6 @@ class PostView {
 
     public function isDownVoted() : bool {
         if(isset($_POST[self::$downvoteButton])) {
-            echo 'isDownVoted';
-            debug_print_backtrace();
             return isset($_POST[self::$downvoteButton]);
 		} else {
 			return false;
@@ -67,8 +66,6 @@ class PostView {
 
     public function isUpVoted() : bool {
         if(isset($_POST[self::$upvoteButton])) {
-            echo 'isUpVoted';
-            debug_print_backtrace();
             return isset($_POST[self::$upvoteButton]);
 		} else {
 			return false;
@@ -77,8 +74,6 @@ class PostView {
 
     public function isDeleted() : bool {
         if(isset($_POST[self::$deleteButton])) {
-            debug_print_backtrace();
-            echo 'isDeleted';
             return isset($_POST[self::$deleteButton]);
 		} else {
 			return false;
@@ -88,6 +83,11 @@ class PostView {
     public function getPostID() : int {
         if(isset($_POST[self::$postID])) 
 			return $_POST[self::$postID];
+    }
+
+    public function getAuthor() {
+        if(isset($_POST[self::$author]))
+            return $_POST[self::$author];
     }
 
     private function generateAllPosts() : string {
@@ -104,6 +104,7 @@ class PostView {
                             ' . $post['upvotes'] . '
                             ' . $this->generateVoteButtonsHTML() . '
                             <input name="' . self::$postID . '" value="' . $post['id'] . '" type="hidden"/>
+                            <input name="' . self::$author . '" value="' . $post['author'] . '" type="hidden"/>
                             ' . $this->generateDeletePostButtonHTML() .'
                         </form>
                     <div class="' .self::$postBody. '">
@@ -138,7 +139,14 @@ class PostView {
                 <input type="submit" id="' . self::$delete_btn . '" 
                 name="' . self::$deleteButton . '" value="Delete"/>
             ';
-        return $res;
+        
+        // var_dump($this->s->getUserSession());
+        // var_dump($this->getAuthor());
+        // if($this->s->getUserSession() == $this->getAuthor()) {
+            return $res;
+        // } else {
+        //     return '';
+        // }
     }
 
     private function generatePostFormHTML() : string {

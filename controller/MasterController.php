@@ -33,7 +33,7 @@
             $lm = new LoginModel($dbh, $s);
             $rm = new RegisterModel($dbh);
             $pm = new PostModel($dbh,$s);
-            $pv = new PostView($lm, $dbh);
+            $pv = new PostView($lm, $dbh, $s);
             
             if(isset($_GET[self::$register])) {
                 $rv = new RegisterView($rm);

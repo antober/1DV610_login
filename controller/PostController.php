@@ -30,26 +30,18 @@ class PostController {
     }
 
     private function userWantsToPost() : void {
-        echo 'userWantsToPost';
-        debug_print_backtrace();
         $this->pm->doActionPost($this->pv->getPost());
     }
 
     private function userWantsToUpvote() : void {
-        echo 'userWantsToUpvote';
-        debug_print_backtrace();
         $this->pm->doActionVote($this->pv->getPostID());
     }
 
     private function userWantsToDownvote() : void {
-        echo 'userWantsToDownvote';
-        debug_print_backtrace();
         $this->pm->doActionDownVote($this->pv->getPostID());
     }
     
     private function userWantsToDeletePost() : void {
-        echo 'userWantsToDeletePost';
-        debug_print_backtrace();
-        $this->pm->doActionDelete($this->pv->getPostID());  
+        $this->pm->doActionDelete($this->pv->getPostID(), $this->pv->getAuthor());  
     }
 }
