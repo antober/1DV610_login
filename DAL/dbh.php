@@ -1,5 +1,6 @@
 <?php
 include_once('dbconfig.php');
+include_once('Exceptions.php');
 
 class dbh {
     
@@ -12,12 +13,9 @@ class dbh {
 
         $sql = "INSERT INTO users (name, password)
         VALUES ('$uname', '$pword')";
-
-        // Move Record created confirmation to view.
-        if ($this->conn->query($sql) === true) {
-            echo "New user created successfully";
-        } else {
-            echo "Error: " . $sql . "<br>" . $this->conn->error;
+        
+        if ($this->conn->query($sql) !== true) {
+            throw new SQLConnectionError("Error: " . $sql . " " . $this->conn->error);
         }
         $this->conn->close();
     }

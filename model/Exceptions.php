@@ -11,3 +11,4 @@ class PasswordDontMatch extends Exception implements IException{}
 class UserExists extends Exception implements IException{}
 class NoContent extends Exception implements IException{}
 class NotPostOwner extends Exception implements IException{}
+class SQLConnectionError extends Exception implements IException{}
