@@ -18,13 +18,15 @@ class PostView {
     private static $delete_btn = 'delete_btn';
 	private $message;
     private $lm;
+    private $pm;
     private $dbh;
     private $s;
 
-    public function __construct(LoginModel $lm, dbh $dbh, $s) {
+    public function __construct(LoginModel $lm, dbh $dbh, $s, PostModel $pm) {
         $this->lm = $lm;
         $this->dbh = $dbh;
         $this->s = $s;
+        $this->pm = $pm;
     }
 
     public function response() : string {
@@ -98,7 +100,7 @@ class PostView {
             '
                 <div class="'.self::$postContainer.'">
                     <div class="' .self::$postInfo. '">
-                        Posted by: ' . $post['author'] . ' </br>
+                        Posted by: ' . $post['author'] . ' <small> '. $this->pm->calcTimeElapsed($post['timestamp']) .' ago</small></br>
                     </div>  
                         <form method="post" action="">
                             ' . $post['upvotes'] . '

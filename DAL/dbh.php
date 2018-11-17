@@ -13,7 +13,7 @@ class dbh {
 
         $sql = "INSERT INTO users (name, password)
         VALUES ('$uname', '$pword')";
-        
+
         if ($this->conn->query($sql) !== true) {
             throw new SQLConnectionError("Error: " . $sql . " " . $this->conn->error);
         }
@@ -46,10 +46,10 @@ class dbh {
         $this->conn->close();
     }
 
-    public function insertPost($author, $post) : void {
+    public function insertPost($author, $timestamp, $post) : void {
         $this->conn = $this->openSqlConn();
-        $sql = "INSERT INTO posts (author, content)
-        VALUES ('$author', '$post')";
+        $sql = "INSERT INTO posts (author, timestamp, content)
+        VALUES ('$author', '$timestamp', '$post')";
 
         $this->conn->query($sql);
         $this->conn->close();
