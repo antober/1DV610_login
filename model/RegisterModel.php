@@ -13,7 +13,7 @@ class RegisterModel {
         $this->dbh = $dbh;
     }
 
-    public function tryActionRegister(string $Username, string $Password, string $rePassword) : void {
+    public function doActionRegister(string $Username, string $Password, string $rePassword) : void {
 		$this->usernameInput = trim($Username);
 		$this->userPasswordInput = trim($Password);
 		$this->rePasswordInput = trim($rePassword);

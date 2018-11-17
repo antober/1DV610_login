@@ -47,7 +47,9 @@ class PostView {
 
     public function isPosted() : bool {
         if(isset($_POST[self::$postButton])) {
-			return true;
+            echo 'isPosted';
+            debug_print_backtrace();
+			return isset($_POST[self::$postButton]);
 		} else {
 			return false;
 		}
@@ -55,6 +57,8 @@ class PostView {
 
     public function isDownVoted() : bool {
         if(isset($_POST[self::$downvoteButton])) {
+            echo 'isDownVoted';
+            debug_print_backtrace();
             return isset($_POST[self::$downvoteButton]);
 		} else {
 			return false;
@@ -63,6 +67,8 @@ class PostView {
 
     public function isUpVoted() : bool {
         if(isset($_POST[self::$upvoteButton])) {
+            echo 'isUpVoted';
+            debug_print_backtrace();
             return isset($_POST[self::$upvoteButton]);
 		} else {
 			return false;
@@ -71,14 +77,15 @@ class PostView {
 
     public function isDeleted() : bool {
         if(isset($_POST[self::$deleteButton])) {
-            echo 'isDeleteted';
+            debug_print_backtrace();
+            echo 'isDeleted';
             return isset($_POST[self::$deleteButton]);
 		} else {
 			return false;
 		}
     }
 
-    public function getPostID(){
+    public function getPostID() : int {
         if(isset($_POST[self::$postID])) 
 			return $_POST[self::$postID];
     }
@@ -95,9 +102,8 @@ class PostView {
                     </div>  
                         <form method="post" action="">
                             ' . $post['upvotes'] . '
-                            ' . $this->generateUpVoteButtonHTML() . '
+                            ' . $this->generateVoteButtonsHTML() . '
                             <input name="' . self::$postID . '" value="' . $post['id'] . '" type="hidden"/>
-                            ' . $this->generateDownVoteButtonHTML() . '
                             ' . $this->generateDeletePostButtonHTML() .'
                         </form>
                     <div class="' .self::$postBody. '">
@@ -110,23 +116,13 @@ class PostView {
         return $posts;
     }
 
-    private function generateUpVoteButtonHTML() : string {
+    private function generateVoteButtonsHTML() : string {
         $res = ''; 
 
         $res .=
             '
                 <input type="submit" id="' . self::$upvote_btn . '" 
                 name="' . self::$upvoteButton . '" value="Like"/>
-            ';
-
-        return $res;
-    }
-
-    private function generateDownVoteButtonHTML() : string {
-        $res = '';
-
-        $res .=
-            '
                 <input type="submit" id="' . self::$downvote_btn . '" 
                 name="' . self::$downvoteButton . '" value="Dislike"/>
             ';
@@ -140,7 +136,7 @@ class PostView {
         $res .= 
             '
                 <input type="submit" id="' . self::$delete_btn . '" 
-                name="' . self::$downvoteButton . '" value="Delete"/>
+                name="' . self::$deleteButton . '" value="Delete"/>
             ';
         return $res;
     }

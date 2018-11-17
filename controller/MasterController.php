@@ -46,7 +46,6 @@
                 $pc = new PostController($pv, $pm);
                 $lc->initLogin();
                 $pc->initPost();
-                // $pc->initPostAction();
                 $layv->render($lm->isLoggedIn(), $logv, $pv, $dtv);
             }
         }

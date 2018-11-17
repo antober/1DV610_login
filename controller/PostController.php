@@ -15,32 +15,41 @@ class PostController {
             if($this->pv->isPosted())
                 $this->userWantsToPost();
 
-            if($this->pv->isUpVoted())
+            else if($this->pv->isDeleted())
+                $this->userWantsToDeletePost();
+
+            else if($this->pv->isUpVoted())
                 $this->userWantsToUpvote();
 
-            if($this->pv->isDownVoted())
+            else if($this->pv->isDownVoted())
                 $this->userWantsToDownvote();
-
-            if($this->pv->isDeleted())
-                $this->userWantsToDeletePost();
+            else return;
         } catch(Exception $e) {
             $this->pv->showMessage($e->getMessage());
         }
     }
 
     private function userWantsToPost() : void {
+        echo 'userWantsToPost';
+        debug_print_backtrace();
         $this->pm->doActionPost($this->pv->getPost());
     }
 
     private function userWantsToUpvote() : void {
+        echo 'userWantsToUpvote';
+        debug_print_backtrace();
         $this->pm->doActionVote($this->pv->getPostID());
     }
 
     private function userWantsToDownvote() : void {
+        echo 'userWantsToDownvote';
+        debug_print_backtrace();
         $this->pm->doActionDownVote($this->pv->getPostID());
     }
-
+    
     private function userWantsToDeletePost() : void {
+        echo 'userWantsToDeletePost';
+        debug_print_backtrace();
         $this->pm->doActionDelete($this->pv->getPostID());  
     }
 }

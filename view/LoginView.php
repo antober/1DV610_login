@@ -40,6 +40,34 @@ class LoginView
 		return $response;
 	}
 
+	public function getUsername() : string {
+		if(isset($_POST[self::$name]))
+			return $_POST[self::$name];		
+		else
+            return '';
+	}
+
+	public function getPassword() : string {
+		if(isset($_POST[self::$password]))
+			return $_POST[self::$password];
+		else
+            return '';
+	}
+	
+	public function logoutButton() : bool {
+		if(isset($_POST[self::$logout])) 
+			return true;
+		else
+			return false;
+	}
+	
+	public function loginButton() : bool {
+		if(isset($_POST[self::$login]))
+			return true;
+		else
+			return false;
+	}	
+
 	private function generateLogoutButtonHTML() : string {
 		return '
 			<form  method="post" >
@@ -72,34 +100,4 @@ class LoginView
 			</form>
 		';
 	}
-
-	public function getUsername() : string {
-		
-		if(isset($_POST[self::$name]))
-			return $_POST[self::$name];		
-		else
-            return '';
-	}
-
-	public function getPassword() : string {
-		if(isset($_POST[self::$password]))
-			return $_POST[self::$password];
-		else
-            return '';
-	}
-	
-	public function logoutButton() : bool {
-		
-		if(isset($_POST[self::$logout])) 
-			return true;
-		else
-			return false;
-	}
-	
-	public function loginButton() : bool {
-		if(isset($_POST[self::$login]))
-			return true;
-		else
-			return false;
-	}	
 }

@@ -5,14 +5,6 @@ class dbh {
     
     private $conn;
 
-    private function openSqlConn() {
-        $conn = new mysqli(DB_SERVERNAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
-
-        if ($conn->connect_error)
-            die("Connection failed: " . $conn->connect_error);
-        return $conn;
-    }
-
     public function insertUser(User $user) : void {
         $this->conn = $this->openSqlConn();
         $uname = $user->getUsername();
@@ -98,6 +90,14 @@ class dbh {
         
 
         $this->conn->close();
+    }
+
+    private function openSqlConn() {
+        $conn = new mysqli(DB_SERVERNAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
+
+        if ($conn->connect_error)
+            die("Connection failed: " . $conn->connect_error);
+        return $conn;
     }
 }
 
