@@ -6,6 +6,7 @@ class RegisterView {
     private static $UserName = "RegisterView::UserName";
     private static $Password = "RegisterView::Password";
     private static $PasswordRepeat = "RegisterView::PasswordRepeat";
+    private static $register = 'register';
     private $message;
     private $rm;
 
@@ -49,7 +50,7 @@ class RegisterView {
     {
         $response = '';
         
-        if(isset($_GET["register"]))
+        if(isset($_GET[self::$register]))
             $response = $this->generateRegistrationFormHTML();
         
         return $response;

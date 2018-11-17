@@ -1,5 +1,5 @@
 <?php
-//include_once('Exceptions.php');
+include_once('Exceptions.php');
 
 class LoginModel {
     
@@ -24,7 +24,7 @@ class LoginModel {
         else if(!$this->dbh->getUser($this->username, $this->password))
             throw new WrongCredentials('Wrong name or password');
         else 
-            $this->s->setSession($username);
+            $this->s->setUserSession($username);
     }
 
     public function isLoggedIn() : bool {

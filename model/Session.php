@@ -4,7 +4,7 @@ class Session {
 
     private static $username = 'username';
     
-    public function setSession(string $username) : void {
+    public function setUserSession(string $username) : void {
         $_SESSION[self::$username] = $username;
     }
 

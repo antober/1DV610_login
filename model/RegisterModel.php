@@ -1,5 +1,5 @@
 <?php
-//include_once('Exceptions.php');
+include_once('Exceptions.php');
 
 class RegisterModel {
 	
