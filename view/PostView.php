@@ -18,15 +18,15 @@ class PostView {
     private static $delete_btn = 'delete_btn';
 	private $message;
     private $lm;
-    private $pm;
+    private $t;
     private $dbh;
     private $s;
 
-    public function __construct(LoginModel $lm, dbh $dbh, $s, PostModel $pm) {
+    public function __construct(LoginModel $lm, dbh $dbh, $s, Timestamp $t) {
         $this->lm = $lm;
         $this->dbh = $dbh;
         $this->s = $s;
-        $this->pm = $pm;
+        $this->t = $t;
     }
 
     public function response() : string {
@@ -100,7 +100,7 @@ class PostView {
             '
                 <div class="'.self::$postContainer.'">
                     <div class="' .self::$postInfo. '">
-                        Posted by: ' . $post['author'] . ' <small> '. $this->pm->calcTimeElapsed($post['timestamp']) .' ago</small></br>
+                        Posted by: ' . $post['author'] . ' <small> '. $this->t->calcTimeElapsed($post['timestamp']) .' ago</small></br>
                     </div>  
                         <form method="post" action="">
                             ' . $post['upvotes'] . '
@@ -142,13 +142,7 @@ class PostView {
                 name="' . self::$deleteButton . '" value="Delete"/>
             ';
         
-        // var_dump($this->s->getUserSession());
-        // var_dump($this->getAuthor());
-        // if($this->s->getUserSession() == $this->getAuthor()) {
             return $res;
-        // } else {
-        //     return '';
-        // }
     }
 
     private function generatePostFormHTML() : string {

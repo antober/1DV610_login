@@ -18,6 +18,7 @@
     require_once('model/PostModel.php');
     require_once('model/User.php');
     require_once('model/Session.php');
+    require_once('model/Timestamp.php');
     
     require_once('DAL/dbh.php');
     
@@ -33,7 +34,8 @@
             $lm = new LoginModel($dbh, $s);
             $rm = new RegisterModel($dbh);
             $pm = new PostModel($dbh,$s);
-            $pv = new PostView($lm, $dbh, $s, $pm);
+            $t = new Timestamp();
+            $pv = new PostView($lm, $dbh, $s, $t);
             
             if(isset($_GET[self::$register])) {
                 $rv = new RegisterView($rm);

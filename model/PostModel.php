@@ -2,7 +2,6 @@
 include_once('Exceptions.php');
 
 class PostModel {
-    
     private $dbh;
     private $s;
 
@@ -32,27 +31,6 @@ class PostModel {
             $this->dbh->deletePost($postID);
         } else {
             throw new NotPostOwner("Not owner of post");
-        }
-    }
-
-    public function calcTimeElapsed($timestamp) {
-        $time = strtotime($timestamp);
-        $time = time() - $time;
-        $time = ($time<1)? 1 : $time;
-        $tokens = array (
-            31536000 => 'year',
-            2592000 => 'month',
-            604800 => 'week',
-            86400 => 'day',
-            3600 => 'hour',
-            60 => 'minute',
-            1 => 'second'
-        );
-
-        foreach ($tokens as $unit => $text) {
-            if ($time < $unit) continue;
-            $numberOfUnits = floor($time / $unit);
-            return $numberOfUnits.' '.$text.(($numberOfUnits>1)?'s':'');
         }
     }
 }
