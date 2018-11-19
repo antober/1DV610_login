@@ -1,4 +1,5 @@
 <?php
+
 include_once('Exceptions.php');
 
 class LoginModel {
@@ -13,7 +14,7 @@ class LoginModel {
         $this->s = $s;
     }
 
-    public function tryActionLogin(string $username, string $password) : void {
+    public function doActionLogin(string $username, string $password) : void {
         $this->username = $username;
         $this->password = $password;
         

@@ -1,4 +1,5 @@
 <?php
+
 include_once('IException.php');
 
 class UsernameMissing extends Exception implements IException {}

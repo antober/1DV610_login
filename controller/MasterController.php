@@ -28,13 +28,13 @@
         
         public function initMastercontroller() : void {
             $dbh = new dbh();
-            $dtv = new DateTimeView();
             $layv = new LayoutView();
+            $dtv = new DateTimeView();
             $s = new Session();
+            $t = new Timestamp();
             $lm = new LoginModel($dbh, $s);
             $rm = new RegisterModel($dbh);
             $pm = new PostModel($dbh,$s);
-            $t = new Timestamp();
             $pv = new PostView($lm, $dbh, $s, $t);
             
             if(isset($_GET[self::$register])) {

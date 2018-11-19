@@ -13,26 +13,24 @@ class LoginController {
 
     public function initLogin() : void {
         if(!$this->lm->isLoggedIn()) { 
-            $this->doActionLogIn();
+            $this->userWantsToLogIn();
         } else {
-            $this->doActionLogout();
+            $this->userWantsToLogout();
         }
     }
 
-    private function doActionLogIn() : void {
+    private function userWantsToLogIn() : void {
         if($this->lv->loginButton()) {
             try {
-                $this->lm->tryActionLogin($this->lv->getUsername(), $this->lv->getPassword());
-                //$this->lv->showMessage($this->lv->showWelcomeText());
+                $this->lm->doActionLogin($this->lv->getUsername(), $this->lv->getPassword());
             } catch (exception $e) {
                 $this->lv->showMessage($e->getMessage());
             }
         }
     }
 
-    private function doActionLogout() : void {
+    private function userWantsToLogout() : void {
         if($this->lv->logoutButton())
             $this->s->removeSession();
-            //$this->lv->showMessage($this->lv->showLogoutText());
     }
 }

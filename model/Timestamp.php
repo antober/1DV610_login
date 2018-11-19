@@ -16,7 +16,7 @@ class Timestamp {
     private static $minute = 'minute';
     private static $second = 'second';
 
-    public function calcTimeElapsed($timestamp) {
+    public function calcTimeElapsed($timestamp) : string {
         $time = strtotime($timestamp);
         $time = time() - $time;
         $time = ($time<1)? 1 : $time;

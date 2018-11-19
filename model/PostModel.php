@@ -1,4 +1,5 @@
 <?php
+
 include_once('Exceptions.php');
 
 class PostModel {

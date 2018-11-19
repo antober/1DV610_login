@@ -1,4 +1,5 @@
 <?php
+
 include('dbconfig.php');
 include('Exceptions.php');
 
